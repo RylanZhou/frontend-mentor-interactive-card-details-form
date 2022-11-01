@@ -7,7 +7,64 @@
     <title>Frontend Mentor | Interactive card details form</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="display">
+        <div class="card-back">
+          <span class="cvc">000</span>
+        </div>
+        <div class="card-front">
+          <div class="circle-1"></div>
+          <div class="circle-2"></div>
+          <span class="number">0000 0000 0000 0000</span>
+          <span class="holder">JANE APPLESEED</span>
+          <span class="exp">00/00</span>
+        </div>
+      </div>
+
+      <form>
+        <div class="row">
+          <label>
+            Cardholder name
+            <div class="wrapper">
+              <input type="text" placeholder="e.g. Jane Appleseed" />
+            </div>
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            Card number
+            <div class="wrapper">
+              <input type="text" placeholder="e.g. 1234 5678 9123 0000" />
+            </div>
+          </label>
+        </div>
+        <div class="row flex">
+          <label class="date">
+            Exp. Date (MM/YY) <br />
+            <div class="wrapper">
+              <input type="text" placeholder="MM" />
+            </div>
+            <div class="wrapper">
+              <input type="text" placeholder="YY" />
+            </div>
+          </label>
+          <label>
+            CVC
+            <div class="wrapper">
+              <input type="text" placeholder="e.g. 123" />
+            </div>
+          </label>
+        </div>
+
+        <button type="submit">Confirm</button>
+      </form>
+
+      <footer>
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+        Coded by <a href="https://github.com/rylanzhou" target="_blank">Rylan Zhou</a>.
+      </footer>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
