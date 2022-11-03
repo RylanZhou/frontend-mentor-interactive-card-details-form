@@ -1,6 +1,6 @@
 # Frontend Mentor - Interactive card details form solution
 
-This is a solution to the [Interactive card details form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-card-details-form-XpS8cKZDWw). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Interactive card details form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-card-details-form-XpS8cKZDWw). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -10,43 +10,35 @@ This is a solution to the [Interactive card details form challenge on Frontend M
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+  - [What I Implemented / Learned](#what-i-implemented-learned)
 
 ## Overview
+
+This challenge is actually harder when trying to solve without using any frameworks but just vanilla javascript/typescript.
 
 ### The challenge
 
 Users should be able to:
 
-- Fill in the form and see the card details update in real-time
-- Receive error messages when the form is submitted if:
-  - Any input field is empty
-  - The card number, expiry date, or CVC fields are in the wrong format
-- View the optimal layout depending on their device's screen size
-- See hover, active, and focus states for interactive elements on the page
+- [x] Fill in the form and see the card details update in real-time
+- [x] Receive error messages when the form is submitted if:
+  - [x] Any input field is empty
+  - [x] The card number, expiry date, or CVC fields are in the wrong format
+- [x] View the optimal layout depending on their device's screen size
+- [x] See hover, active, and focus states for interactive elements on the page
+
+> 📣 Also, error messages, if any, are dynamically prompted during input.
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+|                 Desktop                 |                      Mobile                      |
+| :-------------------------------------: | :----------------------------------------------: |
+| <img src="screenshot.png" width="500"/> | <img src="screenshot-mobile.png" height="500" /> |
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github](https://github.com/RylanZhou/frontend-mentor-interactive-card-details-form)
+- Live Site URL: [Vercel](https://frontend-mentor-interactive-card-details-form-nine.vercel.app/)
 
 ## My process
 
@@ -55,61 +47,78 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- Typescript
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+### What I Implemented / Learned
 
-### What I learned
+**1. Use customized form validation**
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
+First, disable origin form validation by adding `novalidate` attribute to the form element.
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<form novalidate>...</form>
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+
+In javascript, call `inputEl.checkValidity()` to see whether the value of `inputEl` is valid. All validity states can be checked by `inputEl.validity.<property_name>` according to what attributes are added to the input element.
+
+```html
+<input
+  type="text"
+  placeholder="e.g. 1234 5678 9123 0000"
+  required
+  pattern="\d{4} \d{4} \d{4} \d{4}"
+  maxlength="19"
+/>
+```
+
+For the input element above, possible validity properties to check are `valueMissing`, `patternMismatch`, `tooLong`.
+
+**2. Hide arrows in input box where type="number"**
+
+```scss
+input {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+
+**3. Check user input before it goes to the input element**
+
+Use `beforeinput` on input element and return `false` to prevent user input from getting applied.
+
+Use `onkeypress` (⚠️ **DEPRECATED** ⚠️, use `onkeydown` instead) in javascript and return `false`.
+
+**4. Use different error message on different inputs**
+
+For better extensibility, I put error messages that are bond to specified input elements in `data-error` property, then just call `inputEl.dataset.error` to get these errors.
+
+```javascript
+if (input.validity.patternMismatch) {
+  errorEl!.innerHTML = input.dataset.error || 'Pattern mismatch';
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+**5. Border with linear-gradient color**
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+There is actually no border. The trick is to apply linear-gradient on parent element, then put child element as `inset: 1px` to make it shrink 1px in all 4 directions to reveal part of the background.
 
-### Continued development
+**6. Make parent react to focus event on child elements**
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+Instead of manipulating classList in javascript, using css can also do the trick - `:focus-within`.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+```scss
+.wrapper {
+  background: $light-gray;
 
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
-## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+  &:focus-within {
+    background: $gradient;
+  }
+}
+```
