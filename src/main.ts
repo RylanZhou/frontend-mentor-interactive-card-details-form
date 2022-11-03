@@ -3,6 +3,14 @@ import './style.scss';
 const inputEls = document.querySelectorAll('input');
 const formEl = document.querySelector('form');
 
+window.onload = () => {
+  document.documentElement.style.setProperty('--height', window.innerHeight + 'px');
+};
+
+window.onresize = () => {
+  document.documentElement.style.setProperty('--height', window.innerHeight + 'px');
+};
+
 // Limit input
 inputEls.forEach((input) => {
   // Had to specify any type access "event.target"

@@ -31,7 +31,7 @@ $purple: hsl(278, 68%, 11%);
   display: flex;
   margin: 0 auto;
   min-width: 375px;
-  min-height: 100vh;
+  min-height: var(--height);
   padding-bottom: 1rem;
   flex-direction: column;
   background-color: $white;
@@ -133,21 +133,21 @@ $purple: hsl(278, 68%, 11%);
   main {
     position: relative;
     flex: 1;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 390px;
     margin: 0 auto;
-    padding-top: 1rem;
 
     form,
     .success {
-      position: absolute;
-      width: 100%;
       background-color: $white;
 
       button {
         width: 100%;
         padding: 0.9rem 0;
         margin-top: 0.5rem;
+        margin-bottom: 2rem;
         text-align: center;
         font-size: 1.1rem;
         outline: none;
@@ -160,6 +160,9 @@ $purple: hsl(278, 68%, 11%);
     }
 
     form {
+      position: relative;
+      flex: 1;
+      padding: 0 1rem;
       opacity: 1;
       transition: opacity 0.5s;
 
@@ -260,6 +263,10 @@ $purple: hsl(278, 68%, 11%);
     }
 
     .success {
+      position: absolute;
+      width: calc(100% - 2rem);
+      left: 50%;
+      translate: -50% 0;
       z-index: -1;
 
       .check {
@@ -313,12 +320,11 @@ $purple: hsl(278, 68%, 11%);
     }
 
     footer {
-      position: absolute;
       width: 100%;
-      bottom: 0rem;
       font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
       font-size: 0.6rem;
       text-align: center;
+      opacity: 0.5;
 
       a {
         text-decoration: none;
@@ -329,10 +335,10 @@ $purple: hsl(278, 68%, 11%);
   }
 
   @media screen and (min-width: 960px) {
-    height: 100vh;
+    flex-direction: row;
+    height: var(--height);
     min-height: 820px;
     padding: 0 2rem;
-    flex-direction: row;
     background: url('/images/bg-main-desktop.png') no-repeat;
     background-size: 30% 100%;
 
@@ -357,17 +363,20 @@ $purple: hsl(278, 68%, 11%);
     }
 
     main {
-      display: flex;
-      align-items: center;
       max-width: 500px;
       margin-left: 7rem;
 
-      form {
+      form,
+      .success {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         padding: 2rem 0;
       }
 
-      footer {
-        bottom: 1rem;
+      .success {
+        top: 50%;
+        translate: -50% -50%;
       }
     }
   }
