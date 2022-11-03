@@ -99,7 +99,6 @@ function check(input: HTMLInputElement, name: string): Promise<boolean> {
 
 formEl?.addEventListener('submit', (ev: any) => {
   ev.preventDefault();
-  console.log('here');
 
   let valid = true;
 
@@ -111,5 +110,6 @@ formEl?.addEventListener('submit', (ev: any) => {
 
   if (valid) {
     formEl.classList.add('completed');
+    console.log(Object.fromEntries(new FormData(formEl) as any));
   }
 });

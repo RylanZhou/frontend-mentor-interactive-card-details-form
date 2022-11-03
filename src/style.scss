@@ -14,6 +14,10 @@ $purple: hsl(278, 68%, 11%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  @media screen and (min-width: 960px) {
+    font-size: 18px;
+  }
 }
 
 * {
@@ -46,9 +50,11 @@ $purple: hsl(278, 68%, 11%);
       top: 2rem;
       right: 1rem;
       width: 16rem;
+      border-radius: 4px;
       aspect-ratio: 447/245;
       background: url('/images/bg-card-back.png') no-repeat;
       background-size: 100% 100%;
+      box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.1);
 
       #cvc {
         position: absolute;
@@ -71,8 +77,10 @@ $purple: hsl(278, 68%, 11%);
       left: 1rem;
       width: 16rem;
       aspect-ratio: 447/255;
+      border-radius: 4px;
       background: url('/images/bg-card-front.png') no-repeat;
       background-size: 100% 100%;
+      box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.1);
 
       div {
         position: absolute;
@@ -128,7 +136,7 @@ $purple: hsl(278, 68%, 11%);
     width: 100%;
     max-width: 390px;
     margin: 0 auto;
-    padding: 1rem;
+    padding-top: 1rem;
 
     form,
     .success {
@@ -303,17 +311,73 @@ $purple: hsl(278, 68%, 11%);
         font-weight: 500;
       }
     }
+
+    footer {
+      position: absolute;
+      width: 100%;
+      bottom: 0rem;
+      font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+      font-size: 0.6rem;
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-weight: bold;
+        color: $error;
+      }
+    }
   }
 
-  footer {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 0.6rem;
-    text-align: center;
+  @media screen and (min-width: 960px) {
+    height: 100vh;
+    min-height: 820px;
+    padding: 0 2rem;
+    flex-direction: row;
+    background: url('/images/bg-main-desktop.png') no-repeat;
+    background-size: 30% 100%;
 
-    a {
-      text-decoration: none;
-      font-weight: bold;
-      color: $error;
+    .display {
+      height: auto;
+
+      .card-front {
+        top: 32%;
+        left: 12%;
+        transition: transform 0.3s;
+        transform-origin: 50% 100%;
+        transform: scale(1.2);
+      }
+
+      .card-back {
+        top: 50%;
+        left: 30%;
+        transition: transform 0.3s;
+        transform-origin: 50% 0;
+        transform: scale(1.2);
+      }
+    }
+
+    main {
+      display: flex;
+      align-items: center;
+      max-width: 500px;
+      margin-left: 7rem;
+
+      form {
+        padding: 2rem 0;
+      }
+
+      footer {
+        bottom: 1rem;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1369px) {
+    .display {
+      .card-front,
+      .card-back {
+        transform: scale(1.5);
+      }
     }
   }
 }
