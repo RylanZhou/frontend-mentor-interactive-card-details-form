@@ -8,56 +8,119 @@
   </head>
   <body>
     <div id="app">
-      <div class="display">
+      <section class="display">
         <div class="card-back">
-          <span class="cvc">000</span>
+          <span id="cvc">000</span>
         </div>
         <div class="card-front">
           <div class="circle-1"></div>
           <div class="circle-2"></div>
-          <span class="number">0000 0000 0000 0000</span>
-          <span class="holder">JANE APPLESEED</span>
-          <span class="exp">00/00</span>
+          <div id="number">0000 0000 0000 0000</div>
+          <div id="name">JANE APPLESEED</div>
+          <div id="exp"><span id="month">00</span>/<span id="year">00</span></div>
         </div>
-      </div>
+      </section>
 
-      <form>
-        <div class="row">
-          <label>
-            Cardholder name
-            <div class="wrapper">
-              <input type="text" placeholder="e.g. Jane Appleseed" />
-            </div>
-          </label>
-        </div>
-        <div class="row">
-          <label>
-            Card number
-            <div class="wrapper">
-              <input type="text" placeholder="e.g. 1234 5678 9123 0000" />
-            </div>
-          </label>
-        </div>
-        <div class="row flex">
-          <label class="date">
-            Exp. Date (MM/YY) <br />
-            <div class="wrapper">
-              <input type="text" placeholder="MM" />
-            </div>
-            <div class="wrapper">
-              <input type="text" placeholder="YY" />
-            </div>
-          </label>
-          <label>
-            CVC
-            <div class="wrapper">
-              <input type="text" placeholder="e.g. 123" />
-            </div>
-          </label>
-        </div>
+      <main>
+        <section class="success">
+          <div class="check"></div>
+          <h1>Thank you!</h1>
 
-        <button type="submit">Confirm</button>
-      </form>
+          <h2>We've added your card details</h2>
+
+          <button>Continue</button>
+        </section>
+
+        <form novalidate>
+          <div class="row">
+            <label data-for="name">
+              Cardholder name
+              <div class="wrapper">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="e.g. Jane Appleseed"
+                  pattern="[a-zA-Z ,.'-]+"
+                  required
+                  autocomplete="off"
+                  maxlength="30"
+                  data-error="Invalid name"
+                />
+              </div>
+              <div class="error"></div>
+            </label>
+          </div>
+          <div class="row">
+            <label data-for="cardNo">
+              Card number
+              <div class="wrapper">
+                <input
+                  type="text"
+                  name="cardNo"
+                  inputmode="numeric"
+                  placeholder="e.g. 1234 5678 9123 0000"
+                  required
+                  pattern="\d{4} \d{4} \d{4} \d{4}"
+                  maxlength="19"
+                  autocomplete="off"
+                  data-error="Insufficient card number length"
+                />
+              </div>
+              <div class="error"></div>
+            </label>
+          </div>
+          <div class="row flex">
+            <label class="date" data-for="date">
+              Exp. Date (MM/YY) <br />
+              <div class="wrapper">
+                <input
+                  type="number"
+                  name="month"
+                  inputmode="numeric"
+                  placeholder="MM"
+                  required
+                  autocomplete="off"
+                  max="12"
+                  min="1"
+                  maxlength="2"
+                />
+              </div>
+              <div class="wrapper">
+                <input
+                  type="number"
+                  name="year"
+                  placeholder="YY"
+                  required
+                  inputmode="numeric"
+                  autocomplete="off"
+                  max="99"
+                  min="0"
+                  maxlength="2"
+                />
+              </div>
+              <div class="error"></div>
+            </label>
+            <label data-for="cvc">
+              CVC
+              <div class="wrapper">
+                <input
+                  type="text"
+                  name="cvc"
+                  inputmode="numeric"
+                  placeholder="e.g. 123"
+                  required
+                  autocomplete="off"
+                  minlength="3"
+                  maxlength="3"
+                />
+              </div>
+              <div class="error"></div>
+            </label>
+          </div>
+
+          <button type="submit">Confirm</button>
+        </form>
+      </main>
 
       <footer>
         Challenge by
